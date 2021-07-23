@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.devsuperior.bds02.dto.EventDTO;
+
 @Entity
 @Table(name = "tb_event")
 public class Event {
@@ -28,12 +30,27 @@ public class Event {
 	public Event() {
 	}
 
+	public Event(EventDTO dto) {
+		this.id = dto.getId();
+		this.name = dto.getName();
+		this.date = dto.getDate();
+		this.url = dto.getUrl();
+		this.city = new City(dto.getCityId(), null);
+	}
+	
 	public Event(Long id, String name, LocalDate date, String url, City city) {
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.url = url;
 		this.city = city;
+	}
+	
+	public void setEventDTO(EventDTO dto) {
+		this.name = dto.getName();
+		this.date = dto.getDate();
+		this.url = dto.getUrl();
+		this.city = new City(dto.getCityId(), null);
 	}
 
 	public Long getId() {
